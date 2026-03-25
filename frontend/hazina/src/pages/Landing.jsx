@@ -54,16 +54,19 @@ function Landing() {
   return (
     <div className="bg-green-900 min-h-screen text-white">
       {/* NAVBAR */}
-      <div className="flex items-center justify-between p-5 bg-green-800">
-        <h1 className="text-2xl font-bold">🛒Hazina</h1>
+     <div className="flex items-center justify-between p-5 bg-green-800">
+  <h1 className="text-2xl font-bold">🛒Hazina</h1>
 
-        <div className="flex gap-4 items-center">
-          <button className="bg-green-500 px-6 py-2 rounded-lg hover:bg-green-600 transition flex items-center gap-2">
-            <span className="text-xl">👤</span>
-            Login
-          </button>
-        </div>
-      </div>
+  <div className="flex gap-4 items-center">
+    <button
+      onClick={() => navigate("/login")}
+      className="bg-green-500 px-6 py-2 rounded-lg hover:bg-green-600 transition flex items-center gap-2"
+    >
+      <span className="text-xl">👤</span>
+      Login
+    </button>
+  </div>
+</div>
 
       {/* HERO SECTION */}
       <div className="flex items-center justify-between px-16 py-20 bg-gradient-to-b from-green-800 to-green-900 rounded-b-3xl">

@@ -1,24 +1,27 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Sidebar() {
   const navigate = useNavigate();
-  const [activeMenu, setActiveMenu] = useState("dashboard");
+  const location = useLocation();
+  const { userProfile, logout } = useAuth();
 
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: "📊", path: "/admin" },
-    { id: "inventory", label: "Inventory", icon: "📦", path: "/admin/inventory" },
-    { id: "orders", label: "Orders", icon: "📋", path: "/admin/orders" },
-    { id: "purchase", label: "Purchase", icon: "🛍️", path: "/admin/purchase" },
-    { id: "suppliers", label: "Suppliers", icon: "🤝", path: "/admin/suppliers" },
-    { id: "dispatch", label: "Dispatch", icon: "🚚", path: "/admin/dispatch" },
-    { id: "reporting", label: "Reporting (AI)", icon: "📈", path: "/admin/reporting" },
-    { id: "settings", label: "Settings", icon: "⚙️", path: "/admin/settings" },
+    { id: "dashboard",  label: "Dashboard",      icon: "📊", path: "/admin/dashboard" },
+    { id: "users",      label: "Users",           icon: "👤", path: "/admin/users" },
+    { id: "inventory",  label: "Inventory",       icon: "📦", path: "/admin/inventory" },
+    { id: "orders",     label: "Orders",          icon: "📋", path: "/admin/orders" },
+    { id: "purchases",  label: "Purchases",       icon: "🛍️", path: "/admin/purchases" },
+    { id: "suppliers",  label: "Suppliers",       icon: "🤝", path: "/admin/suppliers" },
+    { id: "dispatch",   label: "Dispatch",        icon: "🚚", path: "/admin/dispatch" },
+    { id: "reporting",  label: "Reporting (AI)",  icon: "📈", path: "/admin/reporting" },
+    { id: "audit",      label: "Audit Logs",      icon: "🔍", path: "/admin/audit-logs" },
   ];
 
-  const handleMenuClick = (item) => {
-    setActiveMenu(item.id);
-    navigate(item.path);
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
   };
 
   return (
@@ -28,8 +31,15 @@ function Sidebar() {
         <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-3 text-2xl">
           👤
         </div>
-        <h3 className="text-lg font-semibold">Admin User</h3>
-        <p className="text-green-200 text-sm">admin@hazina.com</p>
+        <h3 className="text-lg font-semibold">
+          {userProfile?.name || "Admin User"}
+        </h3>
+        <p className="text-green-200 text-sm">
+          {userProfile?.email || ""}
+        </p>
+        <span className="mt-2 text-xs bg-green-700 text-green-100 px-3 py-1 rounded-full">
+          {userProfile?.role || ""}
+        </span>
       </div>
 
       {/* Menu Items */}
@@ -37,9 +47,9 @@ function Sidebar() {
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => handleMenuClick(item)}
+            onClick={() => navigate(item.path)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-              activeMenu === item.id
+              location.pathname === item.path
                 ? "bg-green-600 text-white"
                 : "text-green-100 hover:bg-green-700"
             }`}
@@ -51,7 +61,10 @@ function Sidebar() {
       </nav>
 
       {/* Logout */}
-      <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-green-100 hover:bg-green-700 transition border-t border-green-700 mt-8 pt-6">
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-green-100 hover:bg-red-700 transition border-t border-green-700 mt-8 pt-6"
+      >
         <span className="text-xl">🚪</span>
         <span className="font-medium">Logout</span>
       </button>
