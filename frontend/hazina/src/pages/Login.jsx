@@ -13,11 +13,11 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const roles = [
-    { value: "Administrator",  label: "👨‍💼 Administrator" },
-    { value: "Manager",        label: "📊 Manager" },
-    { value: "Warehouse Staff",label: "📦 Warehouse Staff" },
-    { value: "Delivery Staff", label: "🚚 Delivery Staff" },
-    { value: "System Auditor", label: "🔍 System Auditor" },
+    { value: "Administrator",  label: "Administrator" },
+    { value: "Manager",        label: "Manager" },
+    { value: "Warehouse Staff",label: "Warehouse Staff" },
+    { value: "Delivery Staff", label: "Delivery Staff" },
+    { value: "System Auditor", label: "System Auditor" },
   ];
 
   const getFriendlyError = (code) => {
