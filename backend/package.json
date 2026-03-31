@@ -4,9 +4,9 @@
   "description": "Hazina Wholesale Management System Backend",
   "main": "index.js",
   "scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
-},
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "firebase-admin": "^13.7.0",
+    "node-fetch": "^3.3.2",
     "pg": "^8.20.0"
   },
   "devDependencies": {
